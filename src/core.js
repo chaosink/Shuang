@@ -11,7 +11,7 @@ Shuang.core.model = class Model {
       yun: this.yun
     }
   }
-  
+
   beforeJudge() {
     this.scheme.clear()
     const schemeName = Shuang.app.setting.config.scheme
@@ -38,19 +38,19 @@ Shuang.core.model = class Model {
       }
     }
   }
-  
+
   judge(sheng = '', yun = '') {
     this.beforeJudge()
     return this.scheme.has(sheng.toLowerCase() + yun.toLowerCase())
   }
-  
+
   static getRandom() {
     const sheng = Shuang.resource.dict.list[Math.floor(Math.random() * Shuang.resource.dict.list.length)]
     const yun = Shuang.resource.dict[sheng].list[Math.floor(Math.random() * Shuang.resource.dict[sheng].list.length)]
     const instance = new Model(sheng, yun)
     return Model.isSame(instance, Shuang.core.current) ? Model.getRandom() : instance
   }
-  
+
   static getHardRandom() {
     let instance = undefined
     do {
@@ -58,7 +58,7 @@ Shuang.core.model = class Model {
     } while (instance.sheng === '' || instance.yun.length === 1)
     return instance
   }
-  
+
   static getByOrder() {
     while (true) {
       const sheng = Shuang.resource.dict.list[Shuang.core.order.shengIndex]
@@ -77,7 +77,7 @@ Shuang.core.model = class Model {
       }
     }
   }
-  
+
   static isSame(a, b) {
     return a.sheng === b.sheng && a.yun === b.yun
   }
