@@ -49,8 +49,8 @@ Shuang.app.action = {
     })
 
     /** Setting First Question **/
-    Shuang.core.current = new Shuang.core.model('sh', 'uang')
-    $('#q').innerText = Shuang.core.current.view.sheng + Shuang.core.current.view.yun
+    const sheng = Shuang.resource.dict.list[Math.floor(Math.random() * Shuang.resource.dict.list.length)]
+    const yun = Shuang.resource.dict[sheng].list[Math.floor(Math.random() * Shuang.resource.dict[sheng].list.length)]
     Shuang.core.current = new Shuang.core.model(sheng, yun)
     $('#sheng').innerText = Shuang.core.current.view.sheng
     $('#yun').innerText = Shuang.core.current.view.yun
