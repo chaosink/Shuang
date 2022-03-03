@@ -9,3 +9,10 @@ package-lock.json
 
 # Release
 dist
+
+# build
+/build/
+
+# generated files
+/index.html
+/src/app.bundle.js
