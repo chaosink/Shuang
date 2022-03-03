@@ -51,6 +51,9 @@ Shuang.app.action = {
     /** Setting First Question **/
     Shuang.core.current = new Shuang.core.model('sh', 'uang')
     $('#q').innerText = Shuang.core.current.view.sheng + Shuang.core.current.view.yun
+    Shuang.core.current = new Shuang.core.model(sheng, yun)
+    $('#sheng').innerText = Shuang.core.current.view.sheng
+    $('#yun').innerText = Shuang.core.current.view.yun
     $('#dict').innerText = Shuang.core.current.dict
 
     /** Reset Configs **/
@@ -86,6 +89,9 @@ Shuang.app.action = {
     })
     $('#show-pressed-key').addEventListener('change', e => {
       Shuang.app.setting.setShowPressedKey(e.target.checked)
+    })
+    $('#only-yun').addEventListener('change', e => {
+      Shuang.app.setting.setOnlyYun(e.target.checked)
     })
     $('.pay-name#alipay').addEventListener('mouseover', () => {
       Shuang.app.action.qrShow('alipay-qr')
@@ -165,7 +171,7 @@ Shuang.app.action = {
           .map((c, i) => i === 0 ? c.toUpperCase() : c.toLowerCase())
           .join('')
         Shuang.app.setting.updatePressedKeyHint(e.key)
-        const canAuto = $('#a').value.length === 2
+        const canAuto = $('#a').value.length >= (Shuang.app.setting.config.onlyYun === 'true' ? 1 : 2)
         const isRight = this.judge()
         if (canAuto) {
           if (isRight && Shuang.app.setting.config.autoNext === 'true') {
@@ -179,7 +185,12 @@ Shuang.app.action = {
   judge() {
     const input = $('#a')
     const btn = $('#btn')
-    const [sheng, yun] = input.value
+    shuang = '', yun = ''
+    if (Shuang.app.setting.config.onlyYun === 'true') {
+      yun = input.value
+    } else {
+      [sheng, yun] = input.value
+    }
     if (yun && Shuang.core.current.judge(sheng, yun)) {
       btn.onclick = () => this.next(true)
       btn.innerText = Shuang.resource.emoji.right
@@ -216,7 +227,8 @@ Shuang.app.action = {
     }
     if (Shuang.core.history.includes(Shuang.core.current.sheng + Shuang.core.current.yun)) this.next()
     else Shuang.core.history = [...Shuang.core.history, Shuang.core.current.sheng + Shuang.core.current.yun].slice(-100)
-    $('#q').innerText = Shuang.core.current.view.sheng + Shuang.core.current.view.yun
+    $('#sheng').innerText = Shuang.core.current.view.sheng
+    $('#yun').innerText = Shuang.core.current.view.yun
     $('#dict').innerText = Shuang.core.current.dict
 
     // Update Keys Hint

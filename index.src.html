@@ -50,6 +50,10 @@
       <label for="show-pressed-key" class="title">显示实时按键：</label>
       <input type="checkbox" id="show-pressed-key">
     </div>
+    <div class="menu">
+      <label for="only-yun" class="title">只打韵母：</label>
+      <input type="checkbox" id="only-yun">
+    </div>
   </div>
   <div class="workspace">
     <div class="col">
@@ -57,7 +61,10 @@
     </div>
     <div class="col">
       <div class="row">
-        <span class="q" id="q"></span>
+        <span class="q" id="q">
+          <font class="sheng" id="sheng"></font>
+          <font class="yun" id="yun" style="color:red !important"></font>
+        </span>
       </div>
       <div class="row">
         <input id="a" maxlength="2" autofocus="autofocus" autocomplete="off">

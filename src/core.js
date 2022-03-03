@@ -41,6 +41,13 @@ Shuang.core.model = class Model {
 
   judge(sheng = '', yun = '') {
     this.beforeJudge()
+    if (Shuang.app.setting.config.onlyYun === 'true') {
+      for (const sy of this.scheme) {
+        if (sy[1] == yun.toLowerCase())
+          return true;
+      }
+      return false;
+    }
     return this.scheme.has(sheng.toLowerCase() + yun.toLowerCase())
   }
 

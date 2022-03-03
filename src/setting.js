@@ -13,9 +13,10 @@ Shuang.app.setting = {
       autoClear: readStorage('autoClear') || 'true',
       showKeys: readStorage("showKeys") || "true",
       showPressedKey: readStorage("showPressedKey") || "false",
+      onlyYun: readStorage("onlyYun") || "false",
     }
     /** Applying Settings :: Changing UI **/
-    const { scheme, mode, showPic, darkMode, autoNext, autoClear, showKeys, showPressedKey } = this.config
+    const { scheme, mode, showPic, darkMode, autoNext, autoClear, showKeys, showPressedKey, onlyYun } = this.config
     Array.prototype.find.call($('#scheme-select').children,
       schemeOption => Shuang.resource.schemeList[scheme].startsWith(schemeOption.innerText)
     ).selected = true
@@ -26,6 +27,7 @@ Shuang.app.setting = {
     $('#auto-clear-switcher').checked = autoClear === 'true'
     $('#show-keys').checked = showKeys === 'true'
     $('#show-pressed-key').checked = showPressedKey === 'true'
+    $('#only-yun').checked = onlyYun === 'true'
     /** Applying Settings :: Invoking Actions  **/
     this.setScheme(Shuang.resource.schemeList[scheme], false)
     this.setMode(Shuang.app.modeList[mode].name)
@@ -35,6 +37,7 @@ Shuang.app.setting = {
     this.setAutoClear(autoClear)
     this.setShowKeys(showKeys)
     this.setShowPressedKey(showPressedKey)
+    this.setOnlyYun(onlyYun)
   },
   setScheme(schemeName, next = true) {
     this.config.scheme = Object.keys(Shuang.resource.schemeList)[
@@ -102,6 +105,10 @@ Shuang.app.setting = {
   setShowPressedKey(bool) {
     this.config.showPressedKey = bool.toString()
     writeStorage('showPressedKey', this.config.showPressedKey)
+  },
+  setOnlyYun(bool) {
+    this.config.onlyYun = bool.toString()
+    writeStorage('onlyYun', this.config.onlyYun)
   },
   updateKeysHint() {
     const keys = $$('.key')
